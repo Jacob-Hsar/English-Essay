@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Essay Writing Exam - House of J&S</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --success-color: #2f855a;
+            --error-color: #c53030;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Pyidaungsu', 'Myanmar3';
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- Header with Logo Image Space --- */
+        .header {
+            text-align: center;
+            border-bottom: 3px double #e2e8f0;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Logo Image Container (နေရာလွတ်) */
+        .logo-container {
+            max-width: 180px; /* Logo အကျယ်အဝန်းကို ညှိရန် */
+            max-height: 80px; /* Logo အမြင့်ကို ညှိရန် */
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .meta-info {
+            font-size: 14px;
+            color: #4a5568;
+            background: #edf2f7;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Student Info Box Section */
+        .student-info-section {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .info-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        /* Question Card */
+        .question-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #fafbfc;
+            border: 1px solid #edf2f7;
+            border-radius: 8px;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #1a202c;
+            text-align: justify;
+        }
+
+        .textarea-field {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+            resize: vertical;
+            transition: all 0.2s;
+        }
+
+        .textarea-field:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-color);
+        }
+
+        /* Results Screen Layout */
+        #result-section {
+            display: none;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 30px;
+            background: #f0fff4;
+            border: 2px solid #c6f6d5;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .student-display-box {
+            background: #edf2f7;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            text-align: left;
+            font-size: 16px;
+            max-width: 400px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .score-display {
+            font-size: 54px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .review-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .review-item {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .correct-ans-box {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .status-correct {
+            border-left: 4px solid var(--success-color);
+            background: #f0fff4;
+            color: var(--success-color);
+        }
+
+        .status-wrong {
+            border-left: 4px solid var(--error-color);
+            background: #fff5f5;
+            color: var(--error-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <!-- Logo Image URL ထည့်ရန်နေရာ (src="..." ထဲတွင် သင်တန်း Logo လမ်းကြောင်း ထည့်ပါ) -->
+        <div class="logo-container">
+            <img src="logo1.png" alt="House of J&S Logo">
+        </div>
+        
+        <h1>House of J&S Computer Training Center</h1>
+        <h2>English Essay Writing Examination (Myself)</h2>
+        <div class="meta-info">
+            <strong>Total Score:</strong> 100 Marks (6 Paragraphs)
+        </div>
+    </div>
+
+    <!-- EXAM AREA (Hidden on Submit) -->
+    <div id="exam-area">
+        <div class="student-info-section">
+            <div class="info-grid">
+                <div class="info-group">
+                    <label for="student-name">Student Name *</label>
+                    <input type="text" id="student-name" class="info-input" placeholder="Enter your full name..." required>
+                </div>
+                <div class="info-group">
+                    <label for="student-roll">Roll No. / ID *</label>
+                    <input type="text" id="student-roll" class="info-input" placeholder="Enter your ID..." required>
+                </div>
+            </div>
+        </div>
+
+        <form id="quiz-form" onsubmit="evaluateQuiz(event)">
+            <div id="quiz-questions"></div>
+            <button type="submit" class="submit-btn">Submit Examination</button>
+        </form>
+    </div>
+
+    <!-- STANDALONE RESULTS SCREEN (Shown on Submit) -->
+    <div id="result-section">
+        <div class="result-card">
+            <h2>🎉 Examination Submitted Successfully!</h2>
+            <div class="student-display-box" id="student-meta-display"></div>
+            <div class="score-display" id="score-text">0 / 100</div>
+            <p style="margin-top:10px;">ကျောင်းသား၏ ရေးသားချက်နှင့် မူရင်းမူမှန်စာပိုဒ်တို့ကို အောက်တွင် နှိုင်းယှဉ်စစ်ဆေးနိုင်ပါသည်။</p>
+        </div>
+
+        <div class="review-header">📝 Detailed Answer Review</div>
+        <div id="review-list"></div>
+    </div>
+</div>
+
+<script>
+    const essayQuestions = [
+        { title: "၁။ နိဒါန်း (Introduction)", q: "လူသားတိုင်းတွင် မိမိတို့၏ ကိုယ်ပိုင်ထူးခြားချက်များ၊ အရည်အချင်းများနှင့် စရိုက်လက္ခဏာများ အသီးသီး ရှိကြစမြဲ ဖြစ်သည်။ ထို့အတူ ကျွန်တော့်တွင်လည်း ထူးခြားသော ကိုယ်ပိုင်အရည်အချင်းများနှင့် ရည်မှန်းချက်များ ရှိပါသည်။ ကျွန်တော့်အမည်ကတော့ အာကာဖြိုး ဖြစ်ပြီး ယခုအခါ အသက် ၁၃ နှစ် ရှိပြီ ဖြစ်ပါသည်။ ကျွန်တော်သည် မိသားစုနှင့်အတူ ပျော်ရွှင်ချမ်းမြေ့စွာ နေထိုင်လျက်ရှိပြီး၊ လက်ရှိတွင် အလယ်တန်းအဆင့် ပညာရေးကို စာသင်ခန်းအတွင်း၌ တက်ကြွစွာဖြင့် ကြိုးစားအားထုတ် သင်ယူနေသော ကျောင်းသားတစ်ယောက် ဖြစ်ပါသည်။", ans: "Every human being possesses their own unique traits, abilities, and personalities. Similarly, I also have my own unique talents and future goals. My name is Arkar Phyo, and I am currently 13 years old. I live happily with my family, and I am an active and hardworking middle school student who is fully dedicated to learning in the classroom." },
+        { title: "၂။ မိသားစုနောက်ခံနှင့် ပတ်ဝန်းကျင် (Family Background and Environment)", q: "ကျွန်တော့်တွင် အပြန်အလှန် နားလည်မှုရှိပြီး ချစ်ခင်ကြင်နာတတ်သော အဖွဲ့ဝင်လေးဦးရှိသည့် သာယာသော မိသားစုလေးတစ်ခု ရှိပါသည်။ ၎င်းတို့မှာ ကျွန်တော့်ကို အမြဲတမ်း ပံ့ပိုးကူညီပေးသော မိဘနှစ်ပါး၊ ချစ်စရာကောင်းသော မောင်နှမနှင့် ကျွန်တော်တို့ ဖြစ်ကြပါသည်။ ကျွန်တော့်ဖခင်နှင့် မိခင်တို့သည် ကျွန်တော့်အား ပညာတတ်ရုံတင်မကဘဲ စာနာစိတ်ရှိပြီး လိမ္မာယဉ်ကျေးသော သားကောင်းတစ်ယောက် ဖြစ်လာစေရန် ငယ်စဉ်ကတည်းကပင် အကျင့်စာရိတ္တပိုင်းဆိုင်ရာ လမ်းညွှန်ဆုံးမမှုများကို အမြဲတမ်း သွန်သင်ပေးလေ့ရှိပါသည်။ ထို့ကြောင့် ကျွန်တော့်၏ မိသားစုသည် ကျွန်တော့်ဘဝ၏ အကြီးမားဆုံးသော ခွန်အားနှင့် စံပြပုံရိပ်တစ်ခု ဖြစ်ပါသည်။", ans: "I have a happy family of four members who always share mutual understanding and love. They are my supportive parents, my lovely sibling, and myself. My father and mother have always guided my moral values since childhood, teaching me not only to be educated but also to become a compassionate and well-mannered son. Therefore, my family is the greatest strength and role model in my life." },
+        { title: "၃။ စာပေသင်ကြားမှုနှင့် ကျောင်းဘဝ (Education and School Life)", q: "ကျောင်းသားတစ်ယောက်၏ အဓိကတာဝန်မှာ ပညာရှာဖွေခြင်း ဖြစ်သည်နှင့်အညီ ကျွန်တော်သည် ကျောင်းစာများကို ဂရုတစိုက် လေ့လာပါသည်။ ကျောင်းတွင် သင်ကြားရသော ဘာသာရပ်များထဲမှ သိပ္ပံဘာသာရပ် (Science) နှင့် သင်္ချာဘာသာရပ် (Mathematics) တို့ကို အထူးပင် စိတ်ဝင်စားပြီး နှစ်သက်ပါသည်။ ထို့ပြင် ကျောင်းတွင်းရှိ ဆရာ၊ ဆရာမများ၏ သွန်သင်ဆုံးမမှုများကို ရိုသေစွာ လိုက်နာပြီး အတန်းဖော်သူငယ်ချင်းများနှင့်လည်း ရိုးသားဖြောင့်မတ်စွာ၊ စည်းလုံးညီညွတ်စွာ ပေါင်းသင်းဆက်ဆံတတ်သူ ဖြစ်ပါသည်။", ans: "Since a student's primary duty is to pursue knowledge, I study my school lessons very carefully. Among the subjects taught at school, I am especially interested in and fond of Science and Mathematics. Moreover, I respectfully follow the guidance of my teachers and always maintain an honest, friendly, and united relationship with my classmates." },
+        { title: "၄။ ဝါသနာနှင့် အားလပ်ရက် လှုပ်ရှားမှုများ (Hobbies and Leisure Activities)", q: "ကျွန်တော့်တွင် ဘဝကို အဓိပ္ပာယ်ရှိစေပြီး အသိပညာ တိုးပွားစေမည့် ဝါသနာများ ရှိပါသည်။ ကျောင်းစာပြင်ပ အားလပ်ချိန်များတွင် ဗခုသုတဖြစ်စေမည့် စာအုပ်စာပေများကို ဖတ်ရှုရသည်ကို အလွန်နှစ်သက်ပါသည်။ စာဖတ်ခြင်းသည် ကျွန်တော့်၏ အတွေးအခေါ်များကို ကျယ်ပြန့်စေရုံတင်မက ကမ္ဘာလောကကြီးအကြောင်းကို ပိုမိုသိရှိစေပါသည်။ ထို့အပြင် ကိုယ်ခန္ဓာ ကျန်းမာကြံ့ခိုင်ပြီး ဖျတ်လတ်တက်ကြွစေရန်အတွက် ညနေခင်းများတွင် သူငယ်ချင်းများနှင့်အတူ အားကစားပြုလုပ်ခြင်း၊ ဘောလုံးကန်ခြင်းများကို ပြုလုပ်လေ့ရှိပါသည်။ တစ်ဖက်မှလည်း ယနေ့ခေတ်တွင် အရေးပါသော ကွန်ပျူတာနည်းပညာနှင့် အခြေခံ Software အသုံးချမှုများကို လေ့လာသင်ယူရခြင်းကိုလည်း စိတ်အားထက်သန်စွာဖြင့် ဝါသနာပါပါသည်။", ans: "I have hobbies that bring meaning to my life and expand my knowledge. During my free time outside of school, I really love reading books that broaden my general knowledge. Reading not only expands my mindset but also helps me learn more about the world. Additionally, to stay physically fit and active, I enjoy playing sports and football with my friends in the evenings. On the other hand, I am also deeply passionate about studying computer technology and basic software applications, which are highly essential in today's era." },
+        { title: "၅။ အနာဂတ်ရည်မှန်းချက် (Future Ambition)", q: "လူငယ်တစ်ယောက်တွင် ခိုင်မာသော ရည်မှန်းချက်တစ်ခု ရှိရမည်ဟု ကျွန်တော် ယုံကြည်ပါသည်။ ထို့ကြောင့် ကျွန်တော့်၏ အနာဂတ် ရည်မှန်းချက်မှာ နောင်တစ်နေ့တွင် မိမိနိုင်ငံနှင့် လူ့အဖွဲ့အစည်းအတွက် အမှန်တကယ် အကျိုးပြုနိုင်မည့် အရည်အချင်းပြည့်ဝသော အင်ဂျင်နီယာ (Engineer) တစ်ယောက် ဖြစ်လာရန် ဖြစ်ပါသည်။ နည်းပညာများဖြင့် မိမိပတ်ဝန်းကျင်ကို ပိုမိုဖွံ့ဖြိုးတက်အောင် ဖန်တီးချင်သောကြောင့် ဖြစ်ပါသည်။ ယခုအချိန်မှစ၍ ထိုရည်မှန်းချက် ပန်းတိုင်သို့ ရောက်ရှိနိုင်ရန်အတွက် ဇွဲ၊ စနစ်တကျရှိမှု၊ ကြိုးစားအားထုတ်မှုတို့ဖြင့် အကောင်းဆုံး ပြင်ဆင်လျက်ရှိပါသည်။", ans: "I believe that every young person must have a strong ambition. Therefore, my future goal is to become a qualified engineer who can genuinely contribute to my country and society in the future. This is because I want to use technology to develop and improve my environment. From this moment on, I am preparing my best to reach that goal with perseverance, discipline, and hard work." },
+        { title: "၆။ နိဂုံး (Conclusion)", q: "ခြုံငုံ၍ ပြောရပါက ကျွန်တော်သည် မိမိကိုယ်ကို အမြဲတမ်း တိုးတက်အောင် ကြိုးစားနေပြီး၊ ရိုးသားခြင်း၊ စည်းကမ်းရှိခြင်းနှင့် အများအပေါ် ကူညီတတ်ခြင်း စသည့် ကောင်းမွန်သော အရည်အချင်းများရှိသည့် လူငယ်တစ်ယောက် ဖြစ်အောင် နေထိုင်ပါသည်။ မိဘနှင့် ဆရာသမားများ ဂုဏ်ယူရသော သားကောင်း၊ ကျောင်းသားကောင်းတစ်ယောက် ဖြစ်လာစေရန်နှင့် နောင်အနာဂတ်တွင် မိမိမိသားစုနှင့် နိုင်ငံတော်အတွက် အားကိုးအားထားပြုရမည့် လူသားကောင်းတစ်ယောက် ဖြစ်လာစေရန် မျှော်လင့်ချက်အပြည့်ဖြင့် ရှေ့ဆက် ကြိုးစားသွားမည် ဖြစ်ပါသည်။", ans: "In conclusion, I am a young person who is always striving for self-improvement and living with good qualities such as honesty, discipline, and helpfulness toward others. I will continue to do my best with high hopes of becoming a good son and a good student whom my parents and teachers can be proud of, as well as a valuable citizen that my family and nation can rely on in the future." }
+    ];
+
+    const questionsContainer = document.getElementById('quiz-questions');
+    essayQuestions.forEach((item, index) => {
+        const block = document.createElement('div');
+        block.className = 'question-block';
+        block.innerHTML = `
+            <div class="question-title">${item.title}</div>
+            <div class="question-text">${item.q}</div>
+            <textarea class="textarea-field" id="essay-ans-${index}" placeholder="Write the English paragraph translation here..."></textarea>
+        `;
+        questionsContainer.appendChild(block);
+    });
+
+    function evaluateQuiz(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('student-name').value.trim();
+        const roll = document.getElementById('student-roll').value.trim();
+
+        if (!name || !roll) {
+            alert("ကျေးဇူးပြု၍ နာမည်နှင့် ခုံနံပါတ် ဖြည့်စွက်ပေးပါ။");
+            return;
+        }
+
+        let totalScore = 0;
+        const maxScorePerParagraph = 16.66;
+        const reviewList = document.getElementById('review-list');
+        reviewList.innerHTML = '';
+
+        essayQuestions.forEach((item, index) => {
+            const userAns = document.getElementById(`essay-ans-${index}`).value.trim();
+            
+            const cleanUser = userAns.toLowerCase().replace(/[^a-z0-9]/g, "");
+            const cleanTarget = item.ans.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+            let achievedScore = 0;
+            let statusClass = "status-wrong";
+            let statusText = "❌ Review Required / Needs Improvement";
+
+            if (cleanUser === cleanTarget) {
+                achievedScore = 17;
+                statusClass = "status-correct";
+                statusText = "✅ Perfect Match!";
+            } else if (cleanUser.length > 0) {
+                let matchRatio = Math.min(cleanUser.length / cleanTarget.length, cleanTarget.length / cleanUser.length);
+                if (matchRatio > 0.6) {
+                    achievedScore = Math.round(maxScorePerParagraph * matchRatio);
+                    statusClass = "status-correct";
+                    statusText = "⚠️ Partially Correct (Auto-graded assessment)";
+                } else {
+                    achievedScore = Math.round(maxScorePerParagraph * matchRatio * 0.3);
+                }
+            }
+            
+            if (index === 5 && totalScore + achievedScore === 98) { achievedScore += 2; }
+            totalScore += achievedScore;
+
+            const reviewBox = document.createElement('div');
+            reviewBox.className = 'review-item';
+            reviewBox.innerHTML = `
+                <div class="question-title" style="color: var(--primary-color);">${item.title}</div>
+                <div class="question-text" style="font-style: italic; color: #718096;">${item.q}</div>
+                <div style="margin-bottom: 8px;"><strong>ကျောင်းသားအဖြေ:</strong> <span style="color:#2d3748;">${userAns || '(ဘာမှမရေးထားပါ)'}</span></div>
+                <div class="correct-ans-box ${statusClass}">
+                    <strong>${statusText} (Estimated Points: ${achievedScore} Marks)</strong><br><br>
+                    <strong>မူရင်းအဖြေမှန်:</strong> ${item.ans}
+                </div>
+            `;
+            reviewList.appendChild(reviewBox);
+        });
+
+        if(totalScore > 100) totalScore = 100;
+
+        document.getElementById('exam-area').style.display = 'none';
+        document.getElementById('student-meta-display').innerHTML = `
+            <strong>ကျောင်းသားအမည်:</strong> ${name} <br>
+            <strong>ခုံနံပါတ် / ID:</strong> ${roll}
+        `;
+        document.getElementById('score-text').innerText = `${totalScore} / 100 Marks`;
+        document.getElementById('result-section').style.display = 'block';
+
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+</script>
+
+</body>
+</html>
